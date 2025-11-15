@@ -4,7 +4,10 @@
     "slug": "movie-app",
     "scheme": "movieapp",
     "extra": {
-      "OMDB_API_KEY": "c2720c34"
+      "OMDB_API_KEY": "c2720c34",
+      "eas": {
+        "projectId": "00731392-cf2a-4984-9cff-f4243b858bda"
+      }
     },
     "version": "1.0.0",
     "orientation": "portrait",
