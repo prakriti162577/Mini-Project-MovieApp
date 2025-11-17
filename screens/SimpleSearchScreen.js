@@ -11,7 +11,7 @@ import {
 import { TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const OMDB_API_KEY = 'c2720c34';
+const OMDB_API_KEY = '4e937f2f';
 
 const genres = [
   'Action', 'Romance', 'Comedy', 'Thriller', 'Fantasy',

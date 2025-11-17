@@ -29,11 +29,13 @@ export default function GenrePreferencesScreen({ navigation }) {
       if (!userId) return;
 
       try {
-        const docRef = doc(db, 'preferences', userId);
+        // 🌟 FIX: Use the 'user_preferences' collection to align with DiscoverScreen
+        const docRef = doc(db, 'user_preferences', userId); 
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const savedGenres = data.genres?.map((g) => g.name) || [];
+          // 🌟 FIX: Fetch the array of strings from the 'preferredGenres' field
+          const savedGenres = data.preferredGenres || []; 
           setSelectedGenres(savedGenres);
           console.log('✅ Preloaded genres:', savedGenres);
         }
@@ -96,10 +98,12 @@ export default function GenrePreferencesScreen({ navigation }) {
 
     try {
       setSaving(true);
-      const genresToSave = selectedGenres.map((name, index) => ({ id: index + 1, name }));
+      // 🌟 FIX: Prepare to save the simple array of strings
+      const genresToSave = selectedGenres; 
 
-      await setDoc(doc(db, 'preferences', userId), {
-        genres: genresToSave,
+      // 🌟 FIX: Use the correct collection name 'user_preferences' and save under 'preferredGenres'
+      await setDoc(doc(db, 'user_preferences', userId), {
+        preferredGenres: genresToSave,
         updatedAt: new Date(),
       });
 
@@ -111,7 +115,8 @@ export default function GenrePreferencesScreen({ navigation }) {
         text2: 'Your genre choices are stored.',
       });
 
-      navigation.navigate('Discover', { selectedGenres });
+      // No need to pass genres via navigation, DiscoverScreen fetches it.
+      navigation.navigate('Discover'); 
     } catch (error) {
       console.error('❌ Error saving preferences:', error);
       Alert.alert('Error', error.message || 'Failed to save preferences.');
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#1e3a8a',
     textAlign: 'center',
-    fontFamily: 'Pacifico_400Regular',
+    // fontFamily: 'Pacifico_400Regular', // ⚠️ Check if this font is loaded in App.js
   },
   categorySection: {
     marginBottom: 30,
@@ -251,14 +256,14 @@ const styles = StyleSheet.create({
     color: '#fefce8',
   },
   floatingButtonWrapper: {
-  position: 'absolute',
-  bottom: 70, // overlaps navigation bar
-  left: 0,
-  right: 0,
-  alignItems: 'center',
-  zIndex: 10,
-  paddingHorizontal: 20,
-},
+    position: 'absolute',
+    bottom: 70, // overlaps navigation bar
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 10,
+    paddingHorizontal: 20,
+  },
   saveButton: {
     height: 50,
     width: 200,
@@ -276,7 +281,7 @@ const styles = StyleSheet.create({
     color: '#fefce8',
     fontWeight: 'bold',
     fontSize: 16,
-    fontFamily: 'Pacifico_400Regular',
+    // fontFamily: 'Pacifico_400Regular', // ⚠️ Check if this font is loaded in App.js
     textAlign: 'center',
   },
 });

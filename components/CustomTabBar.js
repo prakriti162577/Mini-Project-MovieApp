@@ -21,10 +21,10 @@ const CustomTabBar = ({ active, isVIP }) => {
         active={active === 'Favourites'}
       />
       <TabButton
-        icon="film"
-        label="Watched"
-        onPress={() => navigation.navigate('Watched')}
-        active={active === 'Watched'}
+        icon="search"
+        label="Search"
+        onPress={() => navigation.navigate('Search')}
+        active={active === 'Search'}
       />
       <TabButton
         icon="person"
@@ -38,16 +38,31 @@ const CustomTabBar = ({ active, isVIP }) => {
           label="VIP"
           onPress={() => navigation.navigate('VIP')}
           active={active === 'VIP'}
+          isVIP={true} // ✅ VIP badge only here
         />
       )}
     </View>
   );
 };
 
-const TabButton = ({ icon, label, onPress, active }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress}>
-    <Ionicons name={icon} size={24} color={active ? '#FFD700' : '#7DAAC3'} />
-    <Text style={[styles.label, { color: active ? '#FFD700' : '#7DAAC3' }]}>
+const TabButton = ({ icon, label, onPress, active, isVIP = false }) => (
+  <TouchableOpacity
+    style={styles.button}
+    onPress={onPress}
+    accessibilityLabel={`Navigate to ${label} tab`}
+  >
+    <View style={styles.iconWrapper}>
+      <Ionicons name={icon} size={24} color={active ? '#007BFF' : '#7DAAC3'} />
+      {isVIP && (
+        <Ionicons
+          name="sparkles"
+          size={12}
+          color="#FFD700"
+          style={styles.vipBadge}
+        />
+      )}
+    </View>
+    <Text style={[styles.label, { color: active ? '#007BFF' : '#7DAAC3' }]}>
       {label}
     </Text>
   </TouchableOpacity>
@@ -65,6 +80,14 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+  },
+  iconWrapper: {
+    position: 'relative',
+  },
+  vipBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -6,
   },
   label: {
     fontSize: 12,

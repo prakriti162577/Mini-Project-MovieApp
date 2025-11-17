@@ -429,7 +429,7 @@ return (
               <Text style={styles.modalTitle}>VIP Upgrade</Text>
               <Text style={styles.modalText}>Enjoy premium features and glowing status!</Text>
               <TouchableOpacity style={styles.button} onPress={handleFakePayment}>
-                <Text style={styles.buttonText}>Pay ₹0 and Upgrade</Text>
+                <Text style={styles.buttonText}>Pay ₹200 and Upgrade</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, styles.logout]}
