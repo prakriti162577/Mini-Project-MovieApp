@@ -1,147 +1,131 @@
 
-# 🎬 CineCloud
+## 🎬 CineCloud: Watchlist & Reflection App
 
-**CineCloud** is a React Native mobile app for discovering movies with a cinematic experience. It features genre-based filtering, inline search powered by the OMDb API, and a pastel-themed UI designed for smooth, aesthetic browsing.
-
----
-
-## 🚀 Features
-
-- 🔍 **Inline Search Bar** — Search movies by title or genre instantly
-- 🎭 **Genre Grid** — Tap to explore 20+ genres like Fantasy, Romance, Thriller
-- 🖼️ **Poster Display** — Movie posters fetched from OMDb API
-- 🧠 **Smart Fallbacks** — Placeholder image shown if poster is missing
-- 📱 **Responsive UI** — Optimized for mobile with pastel blue theme
-- ⚡ **Fast Feedback** — Loading indicators and clean layout
-- 🎨 **Custom Fonts** — Uses Pacifico for branding
+**CineCloud** is a mobile app built with **React Native (Expo Go)** that lets users track, reflect on, and share their favorite **movies, shows, and series**. With Firebase authentication, Firestore-powered data storage, and a cinematic UI, CineCloud transforms your watch history into a personalized, interactive experience.
 
 ---
 
-## 🧩 Tech Stack
+### 🚀 Tech Stack
 
-| Layer       | Technology               |
-|------------|--------------------------|
-| Framework  | React Native (Expo)      |
-| API        | OMDb API                 |
-| Icons      | Ionicons via Expo        |
-| Styling    | React Native StyleSheet  |
-| Fonts      | Pacifico_400Regular      |
-| State      | React Hooks (`useState`) |
+| Layer        | Technology Used                     | Notes |
+|--------------|-------------------------------------|-------|
+| **Frontend** | React Native (Expo Go)              | No native modules, fast prototyping |
+| **Routing**  | `expo-router` (optional)            | File-based routing or manual navigation |
+| **Backend**  | Firebase Authentication             | Email/password or social login |
+| **Database** | Firestore (Cloud Firestore)         | NoSQL, real-time sync |
+| **Storage**  | Firebase Storage (optional)         | For posters, screenshots, etc. |
+| **Dev Tools**| Git, VS Code, Expo CLI              | CI/CD optional via EAS |
 
 ---
 
-## 📁 Project Structure
+### 📁 Folder Structure
 
 ```
-cinecloud/
-├── assets/
-│   └── placeholder.png         # fallback image for missing posters
-├── components/
-│   └── SearchBar.js            # optional, now replaced inline
-├── screens/
-│   └── SimpleSearchScreen.js   # main search UI
-├── services/
-│   └── firebaseConfig.js       # optional, for future favorites
-├── App.js
-├── README.md
+CineCloud/
+├── assets/                     # Fonts, images, icons
+├── components/                 # Reusable UI components
+│   ├── CustomTabBar.js
+│   ├── MovieCard.js
+│   └── SearchBar.js
+├── node_modules/              # Dependencies
+├── output/                    # Build or export artifacts
+├── screens/                   # App screens
+│   ├── admin/                 # Admin-specific views
+│   ├── DiscoverScreen.js
+│   ├── FavouritesScreen.js
+│   ├── GenrePreferencesScreen.js
+│   ├── HomeScreen.js
+│   ├── LoginScreen.js
+│   ├── ProfileScreen.js
+│   ├── SearchandExplore.js
+│   ├── SignUpScreen.js
+│   ├── SimpleSearchScreen.js
+│   ├── StartScreen.js
+│   ├── TrailerPlayerScreen.js
+│   ├── VIPScreen.js
+│   └── WelcomeScreen.js
+├── .env                       # Firebase config (never commit this!)
+├── app.json                   # Expo config
+└── README.md                  # Project documentation
 ```
 
 ---
 
-## 🔐 OMDb API Setup
+### 🔐 Firebase Setup
 
-CineCloud uses the [OMDb API](http://www.omdbapi.com/) to fetch movie data.
+1. Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Enable **Authentication** (Email/Password or Google)
+3. Enable **Firestore Database**
+4. Add your Firebase config to `.env`:
 
-### Default Key (for testing):
-```js
-const OMDB_API_KEY = 'c2720c34';
+```env
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+FIREBASE_APP_ID=your_app_id
 ```
-
-### To use your own key:
-1. Sign up at [omdbapi.com/apikey.aspx](http://www.omdbapi.com/apikey.aspx)
-2. Replace the key in `SimpleSearchScreen.js`
 
 ---
 
-## 🛠️ Installation & Setup
+### ✨ Features
 
-### 1. Clone the Repo
+- 🎞️ Discover screen with carousel of watched content
+- 🎯 Genre-based filtering and smooth scroll animations
+- 📝 VIP blog post creation with fade-in transitions
+- 📖 Tap-to-expand modal with title, cast, rating, platform badge, and personal notes
+- 🔐 Firebase Authentication (login/signup)
+- ☁️ Firestore for storing user reflections and watchlist data
+- 🔍 Search and Explore with custom filters
+- 🎥 Trailer playback via embedded player
+
+---
+
+### 🧪 Testing & Debugging
+
+- Use `expo start` for local development
+- Firebase errors logged via `console.error`
+- Modular components and screens for clean debugging
+- Git hygiene: clear commits, branch naming, `.env` excluded
+
+---
+
+### 🛠️ Scripts
 
 ```bash
-git clone https://github.com/your-username/cinecloud.git
-cd cinecloud
-```
+# Start Expo
+npm start
 
-### 2. Install Dependencies
-
-```bash
+# Install dependencies
 npm install
+
+# Firebase setup
+npm install firebase
+
+# Optional: Expo Router setup
+npm install expo-router react-native-safe-area-context react-native-screens
 ```
 
-### 3. Start the App
+---
 
-```bash
-npx expo start
-```
+### 👥 Team Onboarding Checklist
 
-> Make sure you have Expo CLI installed globally:  
-> `npm install -g expo-cli`
+- [ ] Clone repo and run `npm install`
+- [ ] Add `.env` with Firebase config
+- [ ] Test login/signup flow
+- [ ] Explore Discover and VIP screens
+- [ ] Follow commit message conventions
+- [ ] Use modular components and screens for scalability
 
 ---
 
-## 🎨 UI Design
+### 🎨 UI/UX Highlights
 
-- **Colors**:  
-  - Background: `#F2F6FF`  
-  - Accent: `#007BFF`  
-  - Genre Buttons: `#DCEEFF`
+- Fonts: Pacifico, Grance
+- Themes: Pastel gradients, cinematic scroll
+- Posters: Pulled from OMDB or uploaded via Firebase Storage
+- Animations: Fade-in/out, scale on tap, smooth transitions
 
-- **Fonts**:  
-  - `Pacifico_400Regular` for headers and branding
 
-- **Layout**:  
-  - FlatList for genres and results  
-  - Responsive cards with poster, title, and year
-
----
-
-## 🧪 Future Enhancements
-
-- 🔐 Firebase login and user favorites
-- 💖 Heart icon to save favorite movies
-- 🌟 VIP badge and premium access
-- 🎞️ Modal with full movie details
-- 📊 Rating filters and sorting
-- 🎉 Confetti animation on favorite add
-- 🧠 AI-powered recommendations
-
----
-
-## 🧠 Developer Notes
-
-- `handleSearch(query)` triggers OMDb fetch
-- Genre buttons call `handleSearch(genre)`
-- Poster fallback logic prevents crashes from `"Poster": "N/A"`
-- Clean commit messages and modular structure recommended
-
----
-
-## 📸 Screenshots
-
-> Add screenshots once available:
-- Home screen with genre grid
-- Search results with posters
-- Loading state and fallback image
-
----
-
-## 🙌 Credits
-
-- [OMDb API](http://www.omdbapi.com/) for movie data
-- [Expo](https://expo.dev/) for React Native tooling
-- [Ionicons](https://ionic.io/ionicons) for icons
-- [Google Fonts](https://fonts.google.com/specimen/Pacifico) for Pacifico
-
----
-
-Let me know if you want this scaffolded into a Markdown file or want help adding badges, GitHub Actions, or a changelog. We can make this repo shine like a premiere night!
+Would you like me to scaffold your `firebase.js` and `firestore.js` service files next, or generate a printable onboarding checklist for your team?
